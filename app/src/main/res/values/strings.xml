@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Sunshine</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="pref_location_title">Location Settings</string>
+    <string name="pref_location_key">location</string>
+    <string name="pref_location_default">524901</string>
+    <string name="pref_units_key">temperature_units</string>
+    <string name="pref_units_metric">metric</string>
+    <string name="pref_temp_imperial">imperial</string>
+</resources>
