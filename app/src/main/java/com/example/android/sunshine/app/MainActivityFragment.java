@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -36,7 +37,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import android.preference.PreferenceManager;
+
 
 /**
  * A placeholder fragment containing a simple view.
@@ -46,6 +47,7 @@ public class MainActivityFragment extends Fragment {
     public static final String TAG = "MainActivityFragment";
     private static final int MODE_PRIVATE =0 ;
     private ArrayAdapter<String> mForecastAdapter;
+    android.widget.ShareActionProvider mShareActionProvider;
 
     public MainActivityFragment() {
     }

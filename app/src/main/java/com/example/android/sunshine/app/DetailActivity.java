@@ -4,15 +4,21 @@ package com.example.android.sunshine.app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
+
+import java.util.zip.Inflater;
 
 public class DetailActivity extends ActionBarActivity {
 
@@ -55,7 +61,13 @@ public class DetailActivity extends ActionBarActivity {
      */
     public static class PlaceholderFragment extends Fragment {
 
+        public static final String TAG = DetailActivity.class.getSimpleName();
+        public static final String shareHashatag = "#Sunshine";
+        private String mForecastStr;
+
+
         public PlaceholderFragment() {
+            setHasOptionsMenu(true);
         }
 
         @Override
@@ -68,15 +80,42 @@ public class DetailActivity extends ActionBarActivity {
             Intent intent = getActivity().getIntent();
             if(intent != null) {
                 weatherData = intent.getStringExtra(intent.EXTRA_TEXT);
-                textView.setText(weatherData);
+                mForecastStr = weatherData;
+                textView.setText(mForecastStr);
             }
 
             return rootView;
         }
 
+        private Intent shareInent(){
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT,mForecastStr + shareHashatag);
+            return shareIntent;
+        }
+
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             return super.onOptionsItemSelected(item);
+
+        }
+
+        @Override
+        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+            super.onCreateOptionsMenu(menu, inflater);
+            inflater.inflate(R.menu.detailfragment,menu);
+
+            MenuItem item = menu.findItem(R.id.share_action);
+
+            ShareActionProvider mShareActionProvider =
+                    (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+
+            if(mShareActionProvider != null){
+                mShareActionProvider.setShareIntent(shareInent());
+            }else{
+                Log.d(TAG,"No share action provider");
+            }
         }
     }
 }
